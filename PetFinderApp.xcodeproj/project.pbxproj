@@ -1,0 +1,645 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		305CBC3455403948D32F50D5 /* Pods_PetFinderAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2C5EAF7ADBB06108E7E3C71 /* Pods_PetFinderAppTests.framework */; };
+		D40D80AEF38F3333887D8551 /* Pods_PetFinderApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F794E22B0C989B0832BD0F53 /* Pods_PetFinderApp.framework */; };
+		DB7ECCFB2107BD0A00633ED5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECCFA2107BD0A00633ED5 /* AppDelegate.swift */; };
+		DB7ECCFD2107BD0A00633ED5 /* PetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECCFC2107BD0A00633ED5 /* PetVC.swift */; };
+		DB7ECD002107BD0A00633ED5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB7ECCFE2107BD0A00633ED5 /* Main.storyboard */; };
+		DB7ECD022107BD0A00633ED5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB7ECD012107BD0A00633ED5 /* Assets.xcassets */; };
+		DB7ECD052107BD0A00633ED5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB7ECD032107BD0A00633ED5 /* LaunchScreen.storyboard */; };
+		DB7ECD102107BD0B00633ED5 /* PetFinderAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECD0F2107BD0B00633ED5 /* PetFinderAppTests.swift */; };
+		DB7ECD1B2107BFB200633ED5 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECD1A2107BFB200633ED5 /* constants.swift */; };
+		DB7ECD202107C83900633ED5 /* PetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECD1F2107C83900633ED5 /* PetCell.swift */; };
+		DB7ECD222107CAEE00633ED5 /* PetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECD212107CAEE00633ED5 /* PetData.swift */; };
+		DB7ECD2C2108052F00633ED5 /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECD2B2108052F00633ED5 /* Extension+UIView.swift */; };
+		DB7ECD2E21080C2A00633ED5 /* DetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECD2D21080C2A00633ED5 /* DetailsVC.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DB7ECD0C2107BD0B00633ED5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB7ECCEF2107BD0A00633ED5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB7ECCF62107BD0A00633ED5;
+			remoteInfo = PetFinderApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		05CB3AD6B3D1F016DE696924 /* Pods-PetFinderAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetFinderAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PetFinderAppTests/Pods-PetFinderAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		126AC5C11207433A3CCE5405 /* Pods-PetFinderApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetFinderApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PetFinderApp/Pods-PetFinderApp.debug.xcconfig"; sourceTree = "<group>"; };
+		6689D8D05844223DF751A78B /* Pods-PetFinderApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetFinderApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-PetFinderApp/Pods-PetFinderApp.release.xcconfig"; sourceTree = "<group>"; };
+		70CA7B8831FAF4C75DEAE113 /* Pods-PetFinderAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetFinderAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PetFinderAppTests/Pods-PetFinderAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DB7ECCF72107BD0A00633ED5 /* PetFinderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetFinderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB7ECCFA2107BD0A00633ED5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DB7ECCFC2107BD0A00633ED5 /* PetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetVC.swift; sourceTree = "<group>"; };
+		DB7ECCFF2107BD0A00633ED5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DB7ECD012107BD0A00633ED5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DB7ECD042107BD0A00633ED5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DB7ECD062107BD0A00633ED5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB7ECD0B2107BD0B00633ED5 /* PetFinderAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PetFinderAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB7ECD0F2107BD0B00633ED5 /* PetFinderAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderAppTests.swift; sourceTree = "<group>"; };
+		DB7ECD112107BD0B00633ED5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB7ECD1A2107BFB200633ED5 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
+		DB7ECD1F2107C83900633ED5 /* PetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetCell.swift; sourceTree = "<group>"; };
+		DB7ECD212107CAEE00633ED5 /* PetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetData.swift; sourceTree = "<group>"; };
+		DB7ECD2B2108052F00633ED5 /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
+		DB7ECD2D21080C2A00633ED5 /* DetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsVC.swift; sourceTree = "<group>"; };
+		E2C5EAF7ADBB06108E7E3C71 /* Pods_PetFinderAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetFinderAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F794E22B0C989B0832BD0F53 /* Pods_PetFinderApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetFinderApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DB7ECCF42107BD0A00633ED5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D40D80AEF38F3333887D8551 /* Pods_PetFinderApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB7ECD082107BD0B00633ED5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				305CBC3455403948D32F50D5 /* Pods_PetFinderAppTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3194927DE88FCE74F14FEE8C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F794E22B0C989B0832BD0F53 /* Pods_PetFinderApp.framework */,
+				E2C5EAF7ADBB06108E7E3C71 /* Pods_PetFinderAppTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		761EDAB8C8515085067B5D7E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				126AC5C11207433A3CCE5405 /* Pods-PetFinderApp.debug.xcconfig */,
+				6689D8D05844223DF751A78B /* Pods-PetFinderApp.release.xcconfig */,
+				70CA7B8831FAF4C75DEAE113 /* Pods-PetFinderAppTests.debug.xcconfig */,
+				05CB3AD6B3D1F016DE696924 /* Pods-PetFinderAppTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DB7ECCEE2107BD0A00633ED5 = {
+			isa = PBXGroup;
+			children = (
+				DB7ECCF92107BD0A00633ED5 /* PetFinderApp */,
+				DB7ECD0E2107BD0B00633ED5 /* PetFinderAppTests */,
+				DB7ECCF82107BD0A00633ED5 /* Products */,
+				761EDAB8C8515085067B5D7E /* Pods */,
+				3194927DE88FCE74F14FEE8C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DB7ECCF82107BD0A00633ED5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DB7ECCF72107BD0A00633ED5 /* PetFinderApp.app */,
+				DB7ECD0B2107BD0B00633ED5 /* PetFinderAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DB7ECCF92107BD0A00633ED5 /* PetFinderApp */ = {
+			isa = PBXGroup;
+			children = (
+				DB7ECD2A2108051400633ED5 /* Helpers */,
+				DB7ECD1E2107C80000633ED5 /* Controller */,
+				DB7ECD1D2107C7FA00633ED5 /* View */,
+				DB7ECD1C2107C7F000633ED5 /* Model */,
+				DB7ECCFA2107BD0A00633ED5 /* AppDelegate.swift */,
+				DB7ECCFE2107BD0A00633ED5 /* Main.storyboard */,
+				DB7ECD012107BD0A00633ED5 /* Assets.xcassets */,
+				DB7ECD032107BD0A00633ED5 /* LaunchScreen.storyboard */,
+				DB7ECD062107BD0A00633ED5 /* Info.plist */,
+			);
+			path = PetFinderApp;
+			sourceTree = "<group>";
+		};
+		DB7ECD0E2107BD0B00633ED5 /* PetFinderAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				DB7ECD0F2107BD0B00633ED5 /* PetFinderAppTests.swift */,
+				DB7ECD112107BD0B00633ED5 /* Info.plist */,
+			);
+			path = PetFinderAppTests;
+			sourceTree = "<group>";
+		};
+		DB7ECD1C2107C7F000633ED5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB7ECD1A2107BFB200633ED5 /* constants.swift */,
+				DB7ECD212107CAEE00633ED5 /* PetData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DB7ECD1D2107C7FA00633ED5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB7ECD1F2107C83900633ED5 /* PetCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DB7ECD1E2107C80000633ED5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DB7ECCFC2107BD0A00633ED5 /* PetVC.swift */,
+				DB7ECD2D21080C2A00633ED5 /* DetailsVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DB7ECD2A2108051400633ED5 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DB7ECD2B2108052F00633ED5 /* Extension+UIView.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DB7ECCF62107BD0A00633ED5 /* PetFinderApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB7ECD142107BD0B00633ED5 /* Build configuration list for PBXNativeTarget "PetFinderApp" */;
+			buildPhases = (
+				13FC45F20E2BA74E3F069F56 /* [CP] Check Pods Manifest.lock */,
+				DB7ECCF32107BD0A00633ED5 /* Sources */,
+				DB7ECCF42107BD0A00633ED5 /* Frameworks */,
+				DB7ECCF52107BD0A00633ED5 /* Resources */,
+				3D4331EA9B4EF5A13D50A6DB /* [CP] Embed Pods Frameworks */,
+				B3B2D8A8470665047FC62CC6 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PetFinderApp;
+			productName = PetFinderApp;
+			productReference = DB7ECCF72107BD0A00633ED5 /* PetFinderApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DB7ECD0A2107BD0B00633ED5 /* PetFinderAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB7ECD172107BD0B00633ED5 /* Build configuration list for PBXNativeTarget "PetFinderAppTests" */;
+			buildPhases = (
+				5E36CE287A2D5BF7966C308B /* [CP] Check Pods Manifest.lock */,
+				DB7ECD072107BD0B00633ED5 /* Sources */,
+				DB7ECD082107BD0B00633ED5 /* Frameworks */,
+				DB7ECD092107BD0B00633ED5 /* Resources */,
+				4C0759D65469869F5492F4A6 /* [CP] Embed Pods Frameworks */,
+				11C67945F90AC6BF0E0BCA56 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DB7ECD0D2107BD0B00633ED5 /* PBXTargetDependency */,
+			);
+			name = PetFinderAppTests;
+			productName = PetFinderAppTests;
+			productReference = DB7ECD0B2107BD0B00633ED5 /* PetFinderAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DB7ECCEF2107BD0A00633ED5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Pragun Sharma";
+				TargetAttributes = {
+					DB7ECCF62107BD0A00633ED5 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					DB7ECD0A2107BD0B00633ED5 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = DB7ECCF62107BD0A00633ED5;
+					};
+				};
+			};
+			buildConfigurationList = DB7ECCF22107BD0A00633ED5 /* Build configuration list for PBXProject "PetFinderApp" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DB7ECCEE2107BD0A00633ED5;
+			productRefGroup = DB7ECCF82107BD0A00633ED5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DB7ECCF62107BD0A00633ED5 /* PetFinderApp */,
+				DB7ECD0A2107BD0B00633ED5 /* PetFinderAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DB7ECCF52107BD0A00633ED5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB7ECD052107BD0A00633ED5 /* LaunchScreen.storyboard in Resources */,
+				DB7ECD022107BD0A00633ED5 /* Assets.xcassets in Resources */,
+				DB7ECD002107BD0A00633ED5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB7ECD092107BD0B00633ED5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		11C67945F90AC6BF0E0BCA56 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PetFinderAppTests/Pods-PetFinderAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		13FC45F20E2BA74E3F069F56 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PetFinderApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3D4331EA9B4EF5A13D50A6DB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PetFinderApp/Pods-PetFinderApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PetFinderApp/Pods-PetFinderApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4C0759D65469869F5492F4A6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PetFinderAppTests/Pods-PetFinderAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5E36CE287A2D5BF7966C308B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PetFinderAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3B2D8A8470665047FC62CC6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PetFinderApp/Pods-PetFinderApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DB7ECCF32107BD0A00633ED5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB7ECCFD2107BD0A00633ED5 /* PetVC.swift in Sources */,
+				DB7ECD202107C83900633ED5 /* PetCell.swift in Sources */,
+				DB7ECD2C2108052F00633ED5 /* Extension+UIView.swift in Sources */,
+				DB7ECCFB2107BD0A00633ED5 /* AppDelegate.swift in Sources */,
+				DB7ECD2E21080C2A00633ED5 /* DetailsVC.swift in Sources */,
+				DB7ECD1B2107BFB200633ED5 /* constants.swift in Sources */,
+				DB7ECD222107CAEE00633ED5 /* PetData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB7ECD072107BD0B00633ED5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB7ECD102107BD0B00633ED5 /* PetFinderAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DB7ECD0D2107BD0B00633ED5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB7ECCF62107BD0A00633ED5 /* PetFinderApp */;
+			targetProxy = DB7ECD0C2107BD0B00633ED5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DB7ECCFE2107BD0A00633ED5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB7ECCFF2107BD0A00633ED5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DB7ECD032107BD0A00633ED5 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB7ECD042107BD0A00633ED5 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DB7ECD122107BD0B00633ED5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DB7ECD132107BD0B00633ED5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DB7ECD152107BD0B00633ED5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 126AC5C11207433A3CCE5405 /* Pods-PetFinderApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8LP7F4D4WS;
+				INFOPLIST_FILE = PetFinderApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = PragunSharma.PetFinderApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DB7ECD162107BD0B00633ED5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6689D8D05844223DF751A78B /* Pods-PetFinderApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8LP7F4D4WS;
+				INFOPLIST_FILE = PetFinderApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = PragunSharma.PetFinderApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DB7ECD182107BD0B00633ED5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70CA7B8831FAF4C75DEAE113 /* Pods-PetFinderAppTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8LP7F4D4WS;
+				INFOPLIST_FILE = PetFinderAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = PragunSharma.PetFinderAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PetFinderApp.app/PetFinderApp";
+			};
+			name = Debug;
+		};
+		DB7ECD192107BD0B00633ED5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05CB3AD6B3D1F016DE696924 /* Pods-PetFinderAppTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8LP7F4D4WS;
+				INFOPLIST_FILE = PetFinderAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = PragunSharma.PetFinderAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PetFinderApp.app/PetFinderApp";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DB7ECCF22107BD0A00633ED5 /* Build configuration list for PBXProject "PetFinderApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB7ECD122107BD0B00633ED5 /* Debug */,
+				DB7ECD132107BD0B00633ED5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB7ECD142107BD0B00633ED5 /* Build configuration list for PBXNativeTarget "PetFinderApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB7ECD152107BD0B00633ED5 /* Debug */,
+				DB7ECD162107BD0B00633ED5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB7ECD172107BD0B00633ED5 /* Build configuration list for PBXNativeTarget "PetFinderAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB7ECD182107BD0B00633ED5 /* Debug */,
+				DB7ECD192107BD0B00633ED5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DB7ECCEF2107BD0A00633ED5 /* Project object */;
+}
