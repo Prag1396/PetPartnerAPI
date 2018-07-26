@@ -31,7 +31,7 @@ extension PetVC: UITableViewDelegate, UITableViewDataSource {
                     self.downloadImage(withImageURL: url, downloadCompleted: { (status, error, _image) in
                         if (error != nil) {
                             //present alert
-                            print(error.debugDescription)
+                            print("HI: \(error.debugDescription)")
                         }
                         else {
                             if let _img = _image {
@@ -54,6 +54,7 @@ extension PetVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //load DetailsVC
+        self.resetContraint()
         performSegue(withIdentifier: "todetailsVC", sender: Any.self)
     }
     
@@ -82,7 +83,7 @@ extension PetVC {
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if (error != nil) {
-                print(error.debugDescription)
+                print("HI-II: \(error.debugDescription)")
                 downloadCompleted(false, error, nil)
             } else {
                 if let data = data {
@@ -94,12 +95,13 @@ extension PetVC {
     }
     
     func locationAuthStatus() {
+        if(Reachability.isConnectedToNetwork()) {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             guard let userloc: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
             let location = CLLocation(latitude: userloc.latitude, longitude: userloc.longitude)
             self.convertLocationtoAddress(userlocation: location) { (error, retloc) in
                 if(error != nil) {
-                    print(String(describing: error))
+                    print("HI=III: \(error.debugDescription)")
                 } else {
                     //Update UI
                     self.userlocationLabel.text = "\(String(describing: retloc!))"
@@ -108,10 +110,12 @@ extension PetVC {
                 }
             }
             
-        } else {
+        }
+        else {
             locationManager.requestWhenInUseAuthorization()
             locationAuthStatus()
         }
+    }
     }
 }
 

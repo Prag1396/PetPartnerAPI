@@ -28,12 +28,15 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     var animalEntered: String? = nil
     var curr_url: String!
     
+    
     //Pagination
     var totalEnteries: Int = 0
     var limit: Int = 15
-
+    
     //Caching
     //var imagecache = NSCache<NSString, UIImage>()
+    var dataCacheURL: URL?
+    let dataCacheQueue = OperationQueue()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,13 +46,6 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
         self.petTableView.dataSource = self
         self.locationTextfield.delegate = self
         self.animalTextField.delegate = self
-        
-        //Another way of doing caching
-        let memoryCapacity = 100 * 1024 * 1024
-        let diskCapacity = 100 * 1024 * 1024
-        let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "mydiskpath")
-        URLCache.shared = urlCache
-        
         
         locationManager.requestWhenInUseAuthorization()
         
@@ -62,6 +58,10 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
         
         curr_url = CURRENT_SEARCH_URL
         
+        if let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
+            dataCacheURL = cacheURL.appendingPathComponent("data.json")
+        }
+        
         //print(CURRENT_SEARCH_URL)
         self.calculateTotal(url: CURRENT_SEARCH_URL) {
             self.downloadPetDetails(url: CURRENT_SEARCH_URL, downloadCompleted: {
@@ -70,6 +70,8 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
                 }
             })
         }
+        
+        
         
     }
     
@@ -109,7 +111,7 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
             self.animalEntered = animalTextField.text
         }
     }
- 
+    
     @IBAction func initiateSearch(_ sender: Any) {
         
         self.resetContraint()
@@ -142,16 +144,16 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
         }
         curr_url = url
         self.downloadPetDetails(url: url) {
-                DispatchQueue.main.async {
-                    self.petTableView.reloadData()
+            DispatchQueue.main.async {
+                self.petTableView.reloadData()
             }
         }
-       
-    }
         
+    }
+    
     //API Call to download Pet Details
     func downloadPetDetails(url: String, downloadCompleted: @escaping() -> ()) {
-    
+        
         guard let currentURL = URL(string: url) else { return }
         Alamofire.request(currentURL).responseJSON { (response) in
             
@@ -160,11 +162,11 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
             guard let petfinder = dict["petfinder"] as? Dictionary<String, AnyObject> else {return}
             guard let allPets = petfinder["pets"] as? Dictionary<String, AnyObject> else {return}
             guard let petdict = allPets["pet"] as? [Dictionary<String, AnyObject>] else {return}
-
+            
             var index = self.petDataArray.count
-                
+            
             if (self.totalEnteries - self.petDataArray.count >= 15) {
-
+                
                 self.limit = index + 15
             } else {
                 self.limit = index + (self.totalEnteries - self.petDataArray.count)
@@ -172,11 +174,11 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
             
             
             while index < self.limit {
-  
+                
                 let petData = PetData(petdict: petdict[index])
                 self.petDataArray.append(petData)
                 index = index + 1
-
+                
             }
             downloadCompleted()
         }
@@ -184,21 +186,90 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     
     func calculateTotal(url: String, completed: @escaping () -> ()) {
         
-        self.totalEnteries = 0
-        guard let currentURL = URL(string: url) else { return }
-        Alamofire.request(currentURL).responseJSON { (response) in
+        if Reachability.isConnectedToNetwork(){
+            self.totalEnteries = 0
+        
+            guard let currentURL = URL(string: url) else { return }
+            Alamofire.request(currentURL).responseJSON { (response) in
+
+                //Download as store in dictionaries
+                guard let dict = response.value as? Dictionary<String, AnyObject> else {return}
+                guard let petfinder = dict["petfinder"] as? Dictionary<String, AnyObject> else {return}
+                guard let allPets = petfinder["pets"] as? Dictionary<String, AnyObject> else {return}
+                guard let petdict = allPets["pet"] as? [Dictionary<String, AnyObject>] else {return}
+
+                for _ in 0...petdict.count - 1 {
+                    //Store Appropriate Data
+                    self.totalEnteries = self.totalEnteries + 1
+                }
+                
+                if(self.dataCacheURL != nil) {
+                    self.dataCacheQueue.addOperation {
+                        if let stream = OutputStream(url: self.dataCacheURL!, append: false) {
+                            stream.open()
+                            
+                            
+                            if let obj = (try? JSONSerialization.jsonObject(with: response.data!, options: [])) as? Dictionary<String,AnyObject> {
+                                JSONSerialization.writeJSONObject(obj, to: stream, options: [.prettyPrinted], error: nil)
+                            }
+
+                            stream.close()
+                        }
+                        
+                    }
+                }
+                completed()
+            }
+        } else{
+            print("Internet Connection not Available!")
+            //Load Data from Cache
+            if(self.dataCacheURL != nil) {
+                self.dataCacheQueue.addOperation {
+                    if let stream = InputStream(url: self.dataCacheURL!) {
+                        stream.open()
+                        if let response = ((try? JSONSerialization.jsonObject(with: stream, options: [])) as? [String: AnyObject]) {
+                            self.showdataOffline(local: response)
+                        }
+                        stream.close()
+                    }
+                    
+                }
+            }
             
-        //Download as store in dictionaries
-        guard let dict = response.value as? Dictionary<String, AnyObject> else {return}
-        guard let petfinder = dict["petfinder"] as? Dictionary<String, AnyObject> else {return}
+        }
+        
+        
+    }
+    
+    func showdataOffline(local: [String: AnyObject]) {
+        
+        guard let petfinder = local["petfinder"] as? Dictionary<String, AnyObject> else {return}
         guard let allPets = petfinder["pets"] as? Dictionary<String, AnyObject> else {return}
         guard let petdict = allPets["pet"] as? [Dictionary<String, AnyObject>] else {return}
-                
+        
         for _ in 0...petdict.count - 1 {
             //Store Appropriate Data
             self.totalEnteries = self.totalEnteries + 1
         }
-        completed()
+        
+        var index = self.petDataArray.count
+        
+        if (self.totalEnteries - self.petDataArray.count >= 15) {
+            
+            self.limit = index + 15
+        } else {
+            self.limit = index + (self.totalEnteries - self.petDataArray.count)
+        }
+        
+        while index < self.limit {
+            
+            let petData = PetData(petdict: petdict[index])
+            self.petDataArray.append(petData)
+            index = index + 1
+            
+        }
+        DispatchQueue.main.async {
+            self.petTableView.reloadData()
         }
     }
     

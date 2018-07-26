@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		305CBC3455403948D32F50D5 /* Pods_PetFinderAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2C5EAF7ADBB06108E7E3C71 /* Pods_PetFinderAppTests.framework */; };
 		D40D80AEF38F3333887D8551 /* Pods_PetFinderApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F794E22B0C989B0832BD0F53 /* Pods_PetFinderApp.framework */; };
+		DB191A1F210A5E1800A486D9 /* CheckInternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB191A1E210A5E1800A486D9 /* CheckInternetConnection.swift */; };
 		DB7ECCFB2107BD0A00633ED5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECCFA2107BD0A00633ED5 /* AppDelegate.swift */; };
 		DB7ECCFD2107BD0A00633ED5 /* PetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECCFC2107BD0A00633ED5 /* PetVC.swift */; };
 		DB7ECD002107BD0A00633ED5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB7ECCFE2107BD0A00633ED5 /* Main.storyboard */; };
@@ -38,6 +39,8 @@
 		126AC5C11207433A3CCE5405 /* Pods-PetFinderApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetFinderApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PetFinderApp/Pods-PetFinderApp.debug.xcconfig"; sourceTree = "<group>"; };
 		6689D8D05844223DF751A78B /* Pods-PetFinderApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetFinderApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-PetFinderApp/Pods-PetFinderApp.release.xcconfig"; sourceTree = "<group>"; };
 		70CA7B8831FAF4C75DEAE113 /* Pods-PetFinderAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetFinderAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PetFinderAppTests/Pods-PetFinderAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DB191A1E210A5E1800A486D9 /* CheckInternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternetConnection.swift; sourceTree = "<group>"; };
+		DB79D51A210A7013007E7181 /* Alamofire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Pods/Alamofire/Source/Alamofire.swift; sourceTree = "<group>"; };
 		DB7ECCF72107BD0A00633ED5 /* PetFinderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetFinderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB7ECCFA2107BD0A00633ED5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB7ECCFC2107BD0A00633ED5 /* PetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetVC.swift; sourceTree = "<group>"; };
@@ -101,6 +104,7 @@
 		DB7ECCEE2107BD0A00633ED5 = {
 			isa = PBXGroup;
 			children = (
+				DB79D51A210A7013007E7181 /* Alamofire.swift */,
 				DB7ECCF92107BD0A00633ED5 /* PetFinderApp */,
 				DB7ECD0E2107BD0B00633ED5 /* PetFinderAppTests */,
 				DB7ECCF82107BD0A00633ED5 /* Products */,
@@ -174,6 +178,7 @@
 			children = (
 				DB7ECD2B2108052F00633ED5 /* Extension+DetailsVC.swift */,
 				DB7ECD31210954D500633ED5 /* Extension+PetVC.swift */,
+				DB191A1E210A5E1800A486D9 /* CheckInternetConnection.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -395,6 +400,7 @@
 				DB7ECD2C2108052F00633ED5 /* Extension+DetailsVC.swift in Sources */,
 				DB7ECCFB2107BD0A00633ED5 /* AppDelegate.swift in Sources */,
 				DB7ECD2E21080C2A00633ED5 /* DetailsVC.swift in Sources */,
+				DB191A1F210A5E1800A486D9 /* CheckInternetConnection.swift in Sources */,
 				DB7ECD1B2107BFB200633ED5 /* constants.swift in Sources */,
 				DB7ECD222107CAEE00633ED5 /* PetData.swift in Sources */,
 			);
