@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import CoreLocation
 
-class PetVC: UIViewController, UITextFieldDelegate {
+class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var animalTextField: UITextField!
     @IBOutlet weak var locationTextfield: UITextField!
@@ -20,8 +20,9 @@ class PetVC: UIViewController, UITextFieldDelegate {
     
     var petDataArray = [PetData]()
     var imageurl: URL? = nil
-    var imagefromData: Data? = nil
+    var image: UIImage? = nil
     let locationManager = CLLocationManager()
+    var currentLocation: CLLocation? = nil
     var placeMark: CLPlacemark? = nil
     var locationEntered: String? = nil
     var animalEntered: String? = nil
@@ -30,14 +31,25 @@ class PetVC: UIViewController, UITextFieldDelegate {
     //Pagination
     var totalEnteries: Int = 0
     var limit: Int = 15
+
+    //Caching
+    //var imagecache = NSCache<NSString, UIImage>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         self.petTableView.delegate = self
         self.petTableView.dataSource = self
         self.locationTextfield.delegate = self
         self.animalTextField.delegate = self
+        
+        //Another way of doing caching
+        let memoryCapacity = 100 * 1024 * 1024
+        let diskCapacity = 100 * 1024 * 1024
+        let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "mydiskpath")
+        URLCache.shared = urlCache
+        
         
         locationManager.requestWhenInUseAuthorization()
         
@@ -49,15 +61,21 @@ class PetVC: UIViewController, UITextFieldDelegate {
         }
         
         curr_url = CURRENT_SEARCH_URL
-
+        
+        //print(CURRENT_SEARCH_URL)
         self.calculateTotal(url: CURRENT_SEARCH_URL) {
-            self.downloadPetDetails(url: self.curr_url, downloadCompleted: {
-                self.petTableView.reloadData()
+            self.downloadPetDetails(url: CURRENT_SEARCH_URL, downloadCompleted: {
+                DispatchQueue.main.async {
+                    self.petTableView.reloadData()
+                }
             })
         }
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.locationAuthStatus()
+    }
     
     @IBAction func searchbtnpressed(_ sender: Any) {
         UIView.animate(withDuration: 1, animations: {
@@ -105,12 +123,14 @@ class PetVC: UIViewController, UITextFieldDelegate {
             self.constructURL(locEntered: loc, animalEntered: nil)
         } else if let animal = self.animalEntered, self.animalEntered != "" {
             self.constructURL(locEntered: nil, animalEntered: animal)
+        } else {
+            self.constructURL()
         }
         
     }
     
     func constructURL(locEntered: String? = nil, animalEntered: String? = nil) {
-        var url: String = NEW_SEARCH_URL
+        var url: String!
         if let loc = locEntered, let animal = animalEntered {
             url = NEW_SEARCH_URL + NEWLOCATION + loc + NEWANIMAL + animal
         } else if let loc = locEntered {
@@ -121,13 +141,12 @@ class PetVC: UIViewController, UITextFieldDelegate {
             url = NEW_SEARCH_URL + LOCATIONPLACEHOLDER + ANIMALPLACEHOLDER
         }
         curr_url = url
-        
-        self.downloadPetDetails(url: curr_url) {
-            DispatchQueue.main.async {
-                self.petTableView.reloadData()
+        self.downloadPetDetails(url: url) {
+                DispatchQueue.main.async {
+                    self.petTableView.reloadData()
             }
         }
-        
+       
     }
         
     //API Call to download Pet Details
@@ -151,14 +170,14 @@ class PetVC: UIViewController, UITextFieldDelegate {
                 self.limit = index + (self.totalEnteries - self.petDataArray.count)
             }
             
+            
             while index < self.limit {
-                print("Limit \(self.limit)")
-                print(index)
+  
                 let petData = PetData(petdict: petdict[index])
                 self.petDataArray.append(petData)
                 index = index + 1
+
             }
-           
             downloadCompleted()
         }
     }
@@ -183,13 +202,32 @@ class PetVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //convert location to Readable Address
+    func convertLocationtoAddress(userlocation: CLLocation, conversioncompleted: @escaping(_ error: String?, _ loc: CLPlacemark?) -> ()) {
+        let geoCoder = CLGeocoder()
+        geoCoder.reverseGeocodeLocation(userlocation) { (placemark, error) in
+            if error != nil {
+                conversioncompleted("\(error.debugDescription)", nil)
+            } else if let placemarksArray = placemark {
+                if let pmark = placemarksArray.first {
+                    conversioncompleted(nil, pmark)
+                } else {
+                    conversioncompleted("Could not locate user", nil)
+                }
+            } else {
+                conversioncompleted("Unkown Error", nil)
+            }
+            
+        }
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let indexPath = petTableView.indexPathForSelectedRow else { return }
         let selectedrow = indexPath.row
         
         if segue.identifier == "todetailsVC" {
             if let destination = segue.destination as? DetailsVC {
-                destination.PetIndexObj = self.petDataArray[selectedrow]
                 destination.contactEmail = self.petDataArray[selectedrow].contactEmail
                 destination.contactphone = self.petDataArray[selectedrow].contactPhone
                 destination.image = self.petDataArray[selectedrow].imageURLBig

@@ -11,24 +11,6 @@ import CoreLocation
 
 //Extensions
 
-extension PetVC: CLLocationManagerDelegate {
-    
-    //Location
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let userloc: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
-        let location = CLLocation(latitude: userloc.latitude, longitude: userloc.longitude)
-        self.convertLocationtoAddress(userlocation: location) { (error, retLoc) in
-            if(error != nil) {
-                print(String(describing: error))
-            } else {
-                //Update UI
-                self.userlocationLabel.text = "\(String(describing: retLoc!))"
-            }
-        }
-        
-    }
-}
-
 extension PetVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,25 +22,34 @@ extension PetVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.petDataArray.count > 0 {
+        
             if let cell = tableView.dequeueReusableCell(withIdentifier: "petCell", for: indexPath) as? PetCell {
+                if self.petDataArray.count > 0 {
                 let petObj = self.petDataArray[indexPath.row]
                 if let url = URL(string: petObj.imageURLSmall) {
-                    self.downloadImage(withImageURL: url, downloadCompleted: { (status, error, data) in
+                    //Only download if image not available in cache
+                    self.downloadImage(withImageURL: url, downloadCompleted: { (status, error, _image) in
                         if (error != nil) {
                             //present alert
                             print(error.debugDescription)
-                        } else {
-                            self.imagefromData = data
+                        }
+                        else {
+                            if let _img = _image {
+                                self.image = _img
+                            }
                         }
                     })
                     
                 }
-                cell.configureCell(petDataObj: petObj, imageData: imagefromData)
-                return cell
+                if let _image = self.image {
+                    cell.configureCell(petDataObj: petObj, image: _image)
+                }
             }
+                return cell
+            } else {
+                return PetCell()
         }
-        return UITableViewCell()
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -81,6 +72,49 @@ extension PetVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
+
+extension PetVC {
+    func downloadImage(withImageURL url: URL, downloadCompleted: @escaping (_ status: Bool, _ error: Error?, _ image: UIImage?)->()) {
+        
+//        if let cachedImage = self.imagecache.object(forKey: url.absoluteString as NSString) {
+//            downloadCompleted(true,nil, cachedImage)
+//        }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if (error != nil) {
+                print(error.debugDescription)
+                downloadCompleted(false, error, nil)
+            } else {
+                if let data = data {
+                    //self.imagecache.setObject(UIImage(data: data)!, forKey: url.absoluteString as NSString)
+                    downloadCompleted(true, nil, UIImage(data: data))
+                }
+            }
+            }.resume()
+    }
+    
+    func locationAuthStatus() {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            guard let userloc: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
+            let location = CLLocation(latitude: userloc.latitude, longitude: userloc.longitude)
+            self.convertLocationtoAddress(userlocation: location) { (error, retloc) in
+                if(error != nil) {
+                    print(String(describing: error))
+                } else {
+                    //Update UI
+                    self.userlocationLabel.text = "\(String(describing: retloc!))"
+                    USER_LOCATION_DOWNLOADED = "\(String(describing: retloc!))"
+                    self.locationManager.stopUpdatingLocation()
+                }
+            }
+            
+        } else {
+            locationManager.requestWhenInUseAuthorization()
+            locationAuthStatus()
+        }
+    }
+}
+
 
 
 

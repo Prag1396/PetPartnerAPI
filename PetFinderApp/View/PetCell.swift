@@ -24,13 +24,11 @@ class PetCell: UITableViewCell {
         self.selectionStyle = .default
     }
     
-    func configureCell(petDataObj: PetData, imageData: Data?) {
+    func configureCell(petDataObj: PetData, image: UIImage) {
         DispatchQueue.main.async {
             self.name.text = petDataObj.name
             self.pet_description.text = petDataObj.description
-            if let imagedata = imageData {
-                self.petImage.image = UIImage(data: imagedata)
-            }
+            self.petImage.image = image
         }
     }
  

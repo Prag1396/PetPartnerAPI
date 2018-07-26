@@ -18,7 +18,6 @@ class DetailsVC: UIViewController {
     @IBOutlet weak var animalBreed: UILabel!
     @IBOutlet weak var age: UILabel!
     
-    private var PetObj: PetData? = nil
     private var _image: String? = nil
     private var _animalSex: String? = nil
     private var _animalMix: String? = nil
@@ -26,14 +25,6 @@ class DetailsVC: UIViewController {
     private var _contactphone: String? = nil
     private var _contactemail: String? = nil
     private var _age: String? = nil
-    
-    var PetIndexObj: PetData {
-        get {
-            return PetObj!
-        } set {
-            PetObj = newValue
-        }
-    }
     
     var image: String {
         get {
