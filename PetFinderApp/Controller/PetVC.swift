@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import CoreLocation
 
-class PetVC: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate {
+class PetVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var animalTextField: UITextField!
     @IBOutlet weak var locationTextfield: UITextField!
@@ -25,6 +25,11 @@ class PetVC: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLoc
     var placeMark: CLPlacemark? = nil
     var locationEntered: String? = nil
     var animalEntered: String? = nil
+    var curr_url: String!
+    
+    //Pagination
+    var totalEnteries: Int = 0
+    var limit: Int = 15
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,11 +47,13 @@ class PetVC: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLoc
             locationManager.distanceFilter = 100
             locationManager.startUpdatingLocation()
         }
+        
+        curr_url = CURRENT_SEARCH_URL
 
-        self.downloadPetDetails {
-            DispatchQueue.main.async {
+        self.calculateTotal(url: CURRENT_SEARCH_URL) {
+            self.downloadPetDetails(url: self.curr_url, downloadCompleted: {
                 self.petTableView.reloadData()
-            }
+            })
         }
         
     }
@@ -93,46 +100,16 @@ class PetVC: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLoc
         
         //Call download PetDetails with location
         if let loc = self.locationEntered, let animal = self.animalEntered, self.locationEntered != "", self.animalEntered != "" {
-            self.downloadPetDetails(locEntered: loc, animalEntered: animal, downloadCompleted: {
-                DispatchQueue.main.async {
-                    self.petTableView.reloadData()
-                }
-            })
+            self.constructURL(locEntered: loc, animalEntered: animal)
         } else if let loc = self.locationEntered, self.locationEntered != "" {
-            self.downloadPetDetails(locEntered: loc, animalEntered: nil, downloadCompleted: {
-                DispatchQueue.main.async {
-                    self.petTableView.reloadData()
-                }
-            })
+            self.constructURL(locEntered: loc, animalEntered: nil)
         } else if let animal = self.animalEntered, self.animalEntered != "" {
-            self.downloadPetDetails(locEntered: nil, animalEntered: animal, downloadCompleted: {
-                DispatchQueue.main.async {
-                    self.petTableView.reloadData()
-                }
-            })
+            self.constructURL(locEntered: nil, animalEntered: animal)
         }
         
     }
     
-    
-    //Location
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let userloc: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
-        let location = CLLocation(latitude: userloc.latitude, longitude: userloc.longitude)
-        self.convertLocationtoAddress(userlocation: location) { (error, retLoc) in
-            if(error != nil) {
-                print(String(describing: error))
-            } else {
-                //Update UI
-                self.userlocationLabel.text = "\(String(describing: retLoc!))"
-            }
-        }
-        
-    }
-    
-    //API Call to download Pet Details
-    func downloadPetDetails(locEntered: String? = nil, animalEntered: String? = nil, downloadCompleted: @escaping() -> ()) {
-        
+    func constructURL(locEntered: String? = nil, animalEntered: String? = nil) {
         var url: String = NEW_SEARCH_URL
         if let loc = locEntered, let animal = animalEntered {
             url = NEW_SEARCH_URL + NEWLOCATION + loc + NEWANIMAL + animal
@@ -143,7 +120,19 @@ class PetVC: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLoc
         } else {
             url = NEW_SEARCH_URL + LOCATIONPLACEHOLDER + ANIMALPLACEHOLDER
         }
+        curr_url = url
         
+        self.downloadPetDetails(url: curr_url) {
+            DispatchQueue.main.async {
+                self.petTableView.reloadData()
+            }
+        }
+        
+    }
+        
+    //API Call to download Pet Details
+    func downloadPetDetails(url: String, downloadCompleted: @escaping() -> ()) {
+    
         guard let currentURL = URL(string: url) else { return }
         Alamofire.request(currentURL).responseJSON { (response) in
             
@@ -153,48 +142,45 @@ class PetVC: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLoc
             guard let allPets = petfinder["pets"] as? Dictionary<String, AnyObject> else {return}
             guard let petdict = allPets["pet"] as? [Dictionary<String, AnyObject>] else {return}
 
-            for i in 0...petdict.count - 1 {
-                //Store Appropriate Data
-                let petData = PetData(petdict: petdict[i])
-                self.petDataArray.append(petData)
+            var index = self.petDataArray.count
+                
+            if (self.totalEnteries - self.petDataArray.count >= 15) {
+
+                self.limit = index + 15
+            } else {
+                self.limit = index + (self.totalEnteries - self.petDataArray.count)
             }
+            
+            while index < self.limit {
+                print("Limit \(self.limit)")
+                print(index)
+                let petData = PetData(petdict: petdict[index])
+                self.petDataArray.append(petData)
+                index = index + 1
+            }
+           
             downloadCompleted()
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.petDataArray.count > 0 {
-            return self.petDataArray.count
-        } else {
-            return 1
+    func calculateTotal(url: String, completed: @escaping () -> ()) {
+        
+        self.totalEnteries = 0
+        guard let currentURL = URL(string: url) else { return }
+        Alamofire.request(currentURL).responseJSON { (response) in
+            
+        //Download as store in dictionaries
+        guard let dict = response.value as? Dictionary<String, AnyObject> else {return}
+        guard let petfinder = dict["petfinder"] as? Dictionary<String, AnyObject> else {return}
+        guard let allPets = petfinder["pets"] as? Dictionary<String, AnyObject> else {return}
+        guard let petdict = allPets["pet"] as? [Dictionary<String, AnyObject>] else {return}
+                
+        for _ in 0...petdict.count - 1 {
+            //Store Appropriate Data
+            self.totalEnteries = self.totalEnteries + 1
         }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.petDataArray.count > 0 {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "petCell", for: indexPath) as? PetCell {
-                let petObj = self.petDataArray[indexPath.row]
-                if let url = URL(string: petObj.imageURLSmall) {
-                    self.downloadImage(withImageURL: url, downloadCompleted: { (status, error, data) in
-                        if (error != nil) {
-                            //present alert
-                            print(error.debugDescription)
-                        } else {
-                            self.imagefromData = data
-                        }
-                    })
-                    
-                }
-                cell.configureCell(petDataObj: petObj, imageData: imagefromData)
-                    return cell
-            }
+        completed()
         }
-        return UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //load DetailsVC
-        performSegue(withIdentifier: "todetailsVC", sender: Any.self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -214,6 +200,5 @@ class PetVC: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLoc
             }
         }
     }
-
+    
 }
-

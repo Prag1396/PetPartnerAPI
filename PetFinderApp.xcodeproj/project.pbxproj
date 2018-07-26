@@ -20,6 +20,7 @@
 		DB7ECD222107CAEE00633ED5 /* PetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECD212107CAEE00633ED5 /* PetData.swift */; };
 		DB7ECD2C2108052F00633ED5 /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECD2B2108052F00633ED5 /* Extension+UIView.swift */; };
 		DB7ECD2E21080C2A00633ED5 /* DetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECD2D21080C2A00633ED5 /* DetailsVC.swift */; };
+		DB7ECD32210954D500633ED5 /* Extension+PetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ECD31210954D500633ED5 /* Extension+PetVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		DB7ECD212107CAEE00633ED5 /* PetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetData.swift; sourceTree = "<group>"; };
 		DB7ECD2B2108052F00633ED5 /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		DB7ECD2D21080C2A00633ED5 /* DetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsVC.swift; sourceTree = "<group>"; };
+		DB7ECD31210954D500633ED5 /* Extension+PetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+PetVC.swift"; sourceTree = "<group>"; };
 		E2C5EAF7ADBB06108E7E3C71 /* Pods_PetFinderAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetFinderAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F794E22B0C989B0832BD0F53 /* Pods_PetFinderApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetFinderApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				DB7ECD2B2108052F00633ED5 /* Extension+UIView.swift */,
+				DB7ECD31210954D500633ED5 /* Extension+PetVC.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 			files = (
 				DB7ECCFD2107BD0A00633ED5 /* PetVC.swift in Sources */,
 				DB7ECD202107C83900633ED5 /* PetCell.swift in Sources */,
+				DB7ECD32210954D500633ED5 /* Extension+PetVC.swift in Sources */,
 				DB7ECD2C2108052F00633ED5 /* Extension+UIView.swift in Sources */,
 				DB7ECCFB2107BD0A00633ED5 /* AppDelegate.swift in Sources */,
 				DB7ECD2E21080C2A00633ED5 /* DetailsVC.swift in Sources */,

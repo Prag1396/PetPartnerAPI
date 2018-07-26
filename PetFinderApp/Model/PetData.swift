@@ -117,7 +117,7 @@ class PetData {
                         self._ImageURLSmall = imageurl
                     }
                     
-                    if let bigImageUrl = photo[2]["$t"] as? String {
+                    if let bigImageUrl = photo[1]["$t"] as? String {
                         self._ImageURLBig = bigImageUrl
                     }
                 }

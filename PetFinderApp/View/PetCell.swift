@@ -25,10 +25,9 @@ class PetCell: UITableViewCell {
     }
     
     func configureCell(petDataObj: PetData, imageData: Data?) {
-        
-        self.name.text = petDataObj.name
-        self.pet_description.text = petDataObj.description
         DispatchQueue.main.async {
+            self.name.text = petDataObj.name
+            self.pet_description.text = petDataObj.description
             if let imagedata = imageData {
                 self.petImage.image = UIImage(data: imagedata)
             }
