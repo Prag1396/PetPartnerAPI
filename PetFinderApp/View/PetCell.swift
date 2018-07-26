@@ -18,7 +18,7 @@ class PetCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.layer.borderWidth = 3
+        self.layer.borderWidth = 1
         self.layer.shadowOffset = CGSize(width: -1, height: 1)
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.selectionStyle = .default

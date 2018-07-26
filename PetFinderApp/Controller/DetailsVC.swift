@@ -106,7 +106,7 @@ class DetailsVC: UIViewController {
         if let localimage = self._image {
             if(localimage != "") {
             if let url = URL(string: localimage) {
-                self.view.downloadImage(withImageURL: url, downloadCompleted: { (status, error, data) in
+                self.downloadImage(withImageURL: url, downloadCompleted: { (status, error, data) in
                     if (error != nil) {
                         print(error.debugDescription)
                     } else {
