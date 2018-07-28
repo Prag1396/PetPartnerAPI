@@ -21,6 +21,8 @@ class PetCellCollection: UICollectionViewCell {
         self.layer.borderWidth = 1
         self.layer.shadowOffset = CGSize(width: -1, height: 1)
         self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.cornerRadius = 25
+        self.layer.masksToBounds = true
     }
     
     func configureCell(petDataObj: PetData, image: UIImage) {

@@ -308,7 +308,18 @@ class PetVCCollectionView: UIViewController, UITextFieldDelegate,  CLLocationMan
     }
 }
 
-extension PetVCCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
+extension PetVCCollectionView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width/2 - 10
+        let hieght = width
+        
+        return CGSize(width: width, height: hieght)
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.resetContraint()
