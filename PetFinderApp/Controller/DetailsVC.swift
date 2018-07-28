@@ -10,6 +10,8 @@ import UIKit
 
 class DetailsVC: UIViewController {
     
+    var petData: PetData!
+    
     @IBOutlet weak var contactemail: UILabel!
     @IBOutlet weak var contactPhone: UILabel!
     @IBOutlet weak var animaldetails: UILabel!
@@ -17,69 +19,7 @@ class DetailsVC: UIViewController {
     @IBOutlet weak var animalsex: UILabel!
     @IBOutlet weak var animalBreed: UILabel!
     @IBOutlet weak var age: UILabel!
-    
-    private var _image: String? = nil
-    private var _animalSex: String? = nil
-    private var _animalMix: String? = nil
-    private var _animalBreed: String? = nil
-    private var _contactphone: String? = nil
-    private var _contactemail: String? = nil
-    private var _age: String? = nil
-    
-    var image: String {
-        get {
-            return _image!
-        } set {
-            _image = newValue
-        }
-    }
-    
-    var animalSex: String {
-        get {
-            return _animalSex!
-        } set {
-            _animalSex = newValue
-        }
-    }
-    
-    var animalmix: String {
-        get {
-            return _animalMix!
-        } set {
-            _animalMix = newValue
-        }
-    }
-    
-    var animalBreeds: String {
-        get {
-            return _animalBreed!
-        } set {
-            _animalBreed = newValue
-        }
-    }
-    var contactEmail: String {
-        get {
-            return _contactemail!
-        } set {
-            _contactemail = newValue
-        }
-    }
-    
-    var contactphone: String {
-        get {
-            return _contactphone!
-        } set {
-            _contactphone = newValue
-        }
-    }
-    
-    var Age: String {
-        get {
-            return _age!
-        } set {
-            _age = newValue
-        }
-    }
+    @IBOutlet weak var animalMix: UILabel!
     
     @IBAction func backbtnPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -94,7 +34,7 @@ class DetailsVC: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if let localimage = self._image {
+        let localimage = petData.imageURLBig
             if(localimage != "") {
             if let url = URL(string: localimage) {
                 self.downloadImage(withImageURL: url, downloadCompleted: { (status, error, data) in
@@ -108,17 +48,16 @@ class DetailsVC: UIViewController {
             } else {
                 self.setUpUI()
             }
-        }
     }
     
     func setUpUI(data: Data? = nil) {
         DispatchQueue.main.async {
-            self.contactemail.text = self.contactEmail
-            self.contactPhone.text = self.contactphone
-            self.animalsex.text = self.animalSex
-            self.animalBreed.text = self.animalBreeds
-            self.age.text = self.Age
-            
+                self.contactemail.text = self.petData.contactEmail
+                self.contactPhone.text = self.petData.contactPhone
+                self.animalsex.text = self.petData.animalSex
+                self.animalBreed.text = self.petData.animalBreed
+                self.age.text = self.petData.age
+                self.animalMix.text = self.petData.animalMix
             if let data = data {
                 self.largeImage.image = UIImage(data: data)
             }

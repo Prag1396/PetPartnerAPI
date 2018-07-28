@@ -1,8 +1,8 @@
 //
-//  ViewController.swift
+//  PetVCCollectionView.swift
 //  PetFinderApp
 //
-//  Created by Pragun Sharma on 7/24/18.
+//  Created by Pragun Sharma on 7/27/18.
 //  Copyright © 2018 Pragun Sharma. All rights reserved.
 //
 
@@ -10,14 +10,9 @@ import UIKit
 import Alamofire
 import CoreLocation
 
-class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
-    
-    @IBOutlet weak var animalTextField: UITextField!
-    @IBOutlet weak var locationTextfield: UITextField!
-    @IBOutlet weak var userlocationLabel: UILabel!
-    @IBOutlet weak var petTableView: UITableView!
-    @IBOutlet weak var tabletopContraint: NSLayoutConstraint!
-    
+
+class PetVCCollectionView: UIViewController, UITextFieldDelegate,  CLLocationManagerDelegate {
+
     var petDataArray = [PetData]()
     var imageurl: URL? = nil
     var image: UIImage? = nil
@@ -29,21 +24,24 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     var curr_url: String!
     
     
+    @IBOutlet weak var animalTextField: UITextField!
+    @IBOutlet weak var locationTextfield: UITextField!
+    @IBOutlet weak var userlocationLabel: UILabel!
+    @IBOutlet weak var CollectionViewtopContraint: NSLayoutConstraint!
+    @IBOutlet weak var mycollectionView: UICollectionView!
+    
     //Pagination
     var totalEnteries: Int = 0
     var limit: Int = 15
     
-    //Caching
-    //var imagecache = NSCache<NSString, UIImage>()
     var dataCacheURL: URL?
     let dataCacheQueue = OperationQueue()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        self.petTableView.delegate = self
-        self.petTableView.dataSource = self
+        self.mycollectionView.delegate = self
+        self.mycollectionView.dataSource = self
         self.locationTextfield.delegate = self
         self.animalTextField.delegate = self
         
@@ -66,7 +64,7 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
         self.calculateTotal(url: CURRENT_SEARCH_URL) {
             self.downloadPetDetails(url: CURRENT_SEARCH_URL, downloadCompleted: {
                 DispatchQueue.main.async {
-                    self.petTableView.reloadData()
+                    self.mycollectionView.reloadData()
                 }
             })
         }
@@ -81,21 +79,22 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     
     @IBAction func searchbtnpressed(_ sender: Any) {
         UIView.animate(withDuration: 1, animations: {
-            self.tabletopContraint.constant = 200
+            self.CollectionViewtopContraint.constant = 200
             self.view.layoutIfNeeded()
         })
     }
     
     func resetContraint() {
         UIView.animate(withDuration: 1, animations: {
-            self.tabletopContraint.constant = 0
+            self.CollectionViewtopContraint.constant = 0
             self.view.layoutIfNeeded()
         })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        guard let indexPath = petTableView.indexPathForSelectedRow else { return }
-        self.petTableView.deselectRow(at: indexPath, animated: false)
+        
+        self.mycollectionView.deselectAllItems()
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -146,11 +145,11 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
         self.calculateTotal(url: url) {
             self.downloadPetDetails(url: url) {
                 DispatchQueue.main.async {
-                    self.petTableView.reloadData()
+                    self.mycollectionView.reloadData()
                 }
             }
         }
-
+        
         
     }
     
@@ -191,16 +190,16 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
         
         if Reachability.isConnectedToNetwork(){
             self.totalEnteries = 0
-        
+            
             guard let currentURL = URL(string: url) else { return }
             Alamofire.request(currentURL).responseJSON { (response) in
-
+                
                 //Download as store in dictionaries
                 guard let dict = response.value as? Dictionary<String, AnyObject> else {return}
                 guard let petfinder = dict["petfinder"] as? Dictionary<String, AnyObject> else {return}
                 guard let allPets = petfinder["pets"] as? Dictionary<String, AnyObject> else {return}
                 guard let petdict = allPets["pet"] as? [Dictionary<String, AnyObject>] else {return}
-
+                
                 for _ in 0...petdict.count - 1 {
                     //Store Appropriate Data
                     self.totalEnteries = self.totalEnteries + 1
@@ -215,7 +214,7 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
                             if let obj = (try? JSONSerialization.jsonObject(with: response.data!, options: [])) as? Dictionary<String,AnyObject> {
                                 JSONSerialization.writeJSONObject(obj, to: stream, options: [.prettyPrinted], error: nil)
                             }
-
+                            
                             stream.close()
                         }
                         
@@ -272,7 +271,7 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
             
         }
         DispatchQueue.main.async {
-            self.petTableView.reloadData()
+            self.mycollectionView.reloadData()
         }
     }
     
@@ -297,10 +296,9 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let indexPath = petTableView.indexPathForSelectedRow else { return }
-        let selectedrow = indexPath.row
-        print(selectedrow)
-        if segue.identifier == "todetailsVC" {
+        //let point: CGPoint = self.mycollectionView.view.convert(.zero, to: self.view)
+   
+        if segue.identifier == "gotodetailsVC" {
             if let destination = segue.destination as? DetailsVC {
                 if let petData = sender as? PetData {
                     destination.petData = petData
@@ -308,5 +306,119 @@ class PetVC: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
             }
         }
     }
+}
+
+extension PetVCCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.resetContraint()
+        let petaData = self.petDataArray[indexPath.row]
+        performSegue(withIdentifier: "gotodetailsVC", sender: petaData)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if self.petDataArray.count > 0 {
+            return self.petDataArray.count
+        } else {
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == self.petDataArray.count - 1 {
+            //we are at the last cell load more content
+            if self.petDataArray.count < self.totalEnteries {
+                //download more content
+                self.downloadPetDetails(url: self.curr_url) {
+                    DispatchQueue.main.async {
+                        self.mycollectionView.reloadData()
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if let cell = mycollectionView.dequeueReusableCell(withReuseIdentifier: "petCell", for: indexPath) as? PetCellCollection {
+            if self.petDataArray.count > 0 {
+                let petObj = self.petDataArray[indexPath.row]
+                if let url = URL(string: petObj.imageURLSmall) {
+                    //Only download if image not available in cache
+                    self.downloadImage(withImageURL: url, downloadCompleted: { (status, error, _image) in
+                        if (error != nil) {
+                            //present alert
+                            print("HI: \(error.debugDescription)")
+                        }
+                        else {
+                            if let _img = _image {
+                                self.image = _img
+                            }
+                        }
+                    })
+                }
+                if let _image = self.image {
+                    cell.configureCell(petDataObj: petObj, image: _image)
+                }
+            }
+            cell.layoutIfNeeded()
+            return cell
+        } else {
+            return PetCellCollection()
+        }
+    }
+}
+
+extension PetVCCollectionView {
+    
+    func downloadImage(withImageURL url: URL, downloadCompleted: @escaping (_ status: Bool, _ error: Error?, _ image: UIImage?)->()) {
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if (error != nil) {
+                print("HI-II: \(error.debugDescription)")
+                downloadCompleted(false, error, nil)
+            } else {
+                if let data = data {
+                    downloadCompleted(true, nil, UIImage(data: data))
+                }
+            }
+            }.resume()
+    }
+    
+    func locationAuthStatus() {
+        if(Reachability.isConnectedToNetwork()) {
+            if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+                guard let userloc: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
+                let location = CLLocation(latitude: userloc.latitude, longitude: userloc.longitude)
+                self.convertLocationtoAddress(userlocation: location) { (error, retloc) in
+                    if(error != nil) {
+                        print("HI=III: \(error.debugDescription)")
+                    } else {
+                        //Update UI
+                        self.userlocationLabel.text = "\(String(describing: retloc!))"
+                        USER_LOCATION_DOWNLOADED = "\(String(describing: retloc!))"
+                        self.locationManager.stopUpdatingLocation()
+                    }
+                }
+                
+            }
+            else {
+                locationManager.requestWhenInUseAuthorization()
+                locationAuthStatus()
+            }
+        }
+    }
     
 }
+
+extension UICollectionView {
+    func deselectAllItems(animated: Bool = false) {
+        for indexPath in self.indexPathsForSelectedItems ?? [] {
+            self.deselectItem(at: indexPath, animated: animated)
+        }
+    }
+}
+
+
+

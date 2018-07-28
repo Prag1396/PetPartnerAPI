@@ -17,7 +17,7 @@ extension PetVC: UITableViewDelegate, UITableViewDataSource {
         if self.petDataArray.count > 0 {
             return self.petDataArray.count
         } else {
-            return 1
+            return 0
         }
     }
     
@@ -45,6 +45,7 @@ extension PetVC: UITableViewDelegate, UITableViewDataSource {
                     cell.configureCell(petDataObj: petObj, image: _image)
                 }
             }
+                cell.layoutIfNeeded()
                 return cell
             } else {
                 return PetCell()
